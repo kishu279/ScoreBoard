@@ -36,14 +36,7 @@ App.post("/getMatchName", (req, res) => {
 });
 
 App.post("/getMatchDetails", (req, res) => {
-    const dataRecevied = {
-        MatchId: 7,
-        Tournament: 2,
-        Team1: 5,
-        Team2: 6,
-        Result: "Rajasthan Won",
-        Name: "Dc vs RR"
-    };
+    const dataRecevied = req.body;
 
     let result = [];
 
@@ -85,7 +78,9 @@ App.post("/getMatchDetails", (req, res) => {
 
             result.push({ players: resultSet2 });
 
-            console.log(result);
+            result.forEach(ele => {
+                console.log(ele);
+            });
 
             // res.json(result);
         });
