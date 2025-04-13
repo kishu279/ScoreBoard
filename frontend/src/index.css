@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-
 .main-title {
   animation-name: titleAni;
   animation-duration: 2s;
@@ -69,17 +68,36 @@
 
 .main-ballAni {
   animation-name: ballAni;
-  animation-duration: 5s;
+  animation-duration: 8s;
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
-  offset-path: path(
-    "M1600,0 C500,500 1000,-100 0,0"
-  ); /* Define a cubic Bezier curve */
+  /* offset-path: path(
+    "M 50 250 C 100 100, 300 400, 350 250 S 600 400, 700 250"
+  ); 
+  Define a cubic Bezier curve */
 }
 
 @keyframes ballAni {
+  0% {
+    transform: translateY(20px) scale(1); /* Start at the original position */
+  }
+  20% {
+    transform: translateY(-100px) scale(1); /* Ball moves up and slightly scales */
+  }
+  40% {
+    transform: translateY(0) scale(1); /* Ball returns to the original position */
+  }
+  45% {
+    transform: scale(1, 1); /* Maintain size */
+  }
+  50% {
+    transform: scale(2, 2); /* Ball grows */
+  }
+  80% {
+    transform: scale(10, 10); /* Ball grows larger */
+  }
   100% {
-    offset-distance: 100%;
+    transform: scale(30, 30); /* Ball reaches maximum size */
   }
 }
 
@@ -122,21 +140,21 @@
 }
 
 :root {
+  --background: #fff8e1; /* Light Cream */
+  --foreground: #4e342e; /* Dark Brown */
+  --primary: #d84315; /* Burnt Orange (Spices) */
+  --primary-foreground: #ffffff; /* White */
+  --secondary: #8bc34a; /* Green (Nature) */
+  --secondary-foreground: #ffffff; /* White */
+  --accent: #ffc107; /* Amber */
+  --accent-foreground: #4e342e; /* Dark Brown */
+  --muted: #ffe0b2; /* Light Orange */
+  --muted-foreground: #4e342e; /* Dark Brown */
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.13 0.028 261.692);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.13 0.028 261.692);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.13 0.028 261.692);
-  --primary: oklch(0.21 0.034 264.665);
-  --primary-foreground: oklch(0.985 0.002 247.839);
-  --secondary: oklch(0.967 0.003 264.542);
-  --secondary-foreground: oklch(0.21 0.034 264.665);
-  --muted: oklch(0.967 0.003 264.542);
-  --muted-foreground: oklch(0.551 0.027 264.364);
-  --accent: oklch(0.967 0.003 264.542);
-  --accent-foreground: oklch(0.21 0.034 264.665);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.928 0.006 264.531);
   --input: oklch(0.928 0.006 264.531);

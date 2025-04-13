@@ -42,9 +42,9 @@ export default function MatchStats() {
   }, [matchId]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
       {/* Header */}
-      <header className="bg-blue-600 text-white py-6 shadow-md">
+      <header className="bg-[var(--primary)] text-[var(--primary-foreground)] py-6 shadow-md">
         <h1 className="text-4xl font-bold text-center">Match Stats</h1>
       </header>
 
@@ -63,10 +63,10 @@ function Stats({ matchDetails }) {
     <div>
       {/* Tournament Name */}
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-gray-800">
+        <h2 className="text-3xl font-bold text-[var(--foreground)]">
           {matchDetails?.matchDetails?.tournamentName}
         </h2>
-        <p className="text-xl text-gray-600 mt-2">
+        <p className="text-xl text-[var(--muted-foreground)] mt-2">
           {matchDetails?.matchDetails?.team1Name} vs{" "}
           {matchDetails?.matchDetails?.team2Name}
         </p>
@@ -75,19 +75,19 @@ function Stats({ matchDetails }) {
       {/* Teams and Players */}
       <div className="flex justify-center gap-16">
         {/* Team 1 */}
-        <div className="w-1/3 bg-white shadow-md rounded-lg p-6">
-          <h3 className="text-2xl font-semibold text-blue-600 mb-4">
+        <div className="w-1/3 bg-[var(--foreground)] text-[var(--primary-foreground)] shadow-md rounded-lg p-6">
+          <h3 className="text-2xl font-semibold text-[var(--accent)] mb-4">
             {matchDetails?.matchDetails?.team1Name}
           </h3>
           <ul className="space-y-2">
             {matchDetails?.team1?.map((player) => (
               <li
                 key={player?.firstName}
-                className="p-3 bg-gray-100 rounded-lg shadow-sm"
+                className="p-3 bg-[var(--muted)] text-[var(--muted-foreground)] rounded-lg shadow-sm"
               >
                 <p className="font-bold">{player?.playerName}</p>
-                <p className="text-sm text-gray-600">{player?.role}</p>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm">{player?.role}</p>
+                <p className="text-sm">
                   Runs: {player?.runs || 0}, Wickets: {player?.wicket || 0}
                 </p>
               </li>
@@ -96,19 +96,19 @@ function Stats({ matchDetails }) {
         </div>
 
         {/* Team 2 */}
-        <div className="w-1/3 bg-white shadow-md rounded-lg p-6">
-          <h3 className="text-2xl font-semibold text-blue-600 mb-4">
+        <div className="w-1/3 bg-[var(--foreground)] text-[var(--primary-foreground)] shadow-md rounded-lg p-6">
+          <h3 className="text-2xl font-semibold text-[var(--accent)] mb-4">
             {matchDetails?.matchDetails?.team2Name}
           </h3>
           <ul className="space-y-2">
             {matchDetails?.team2?.map((player) => (
               <li
                 key={player?.firstName}
-                className="p-3 bg-gray-100 rounded-lg shadow-sm"
+                className="p-3 bg-[var(--muted)] text-[var(--muted-foreground)] rounded-lg shadow-sm"
               >
                 <p className="font-bold">{player?.playerName}</p>
-                <p className="text-sm text-gray-600">{player?.role}</p>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm">{player?.role}</p>
+                <p className="text-sm">
                   Runs: {player?.runs || 0}, Wickets: {player?.wicket || 0}
                 </p>
               </li>

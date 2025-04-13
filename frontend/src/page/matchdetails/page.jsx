@@ -43,9 +43,9 @@ export default function MatchDetailsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
       {/* Header */}
-      <header className="bg-blue-600 text-white py-6 shadow-md">
+      <header className="bg-[var(--primary)] text-[var(--primary-foreground)] py-6 shadow-md">
         <h1 className="text-4xl font-bold text-center">Find Matches</h1>
       </header>
 
@@ -53,14 +53,14 @@ export default function MatchDetailsPage() {
       <section className="flex flex-col items-center mt-10">
         <div className="flex gap-4">
           <input
-            className="border border-gray-300 rounded-full px-4 py-2 w-80 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="border border-[var(--muted-foreground)] rounded-full px-4 py-2 w-80 shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
             placeholder="Enter Match Name"
             type="text"
             value={matchName}
             onChange={(e) => setMatchName(e.target.value)}
           />
           <button
-            className="bg-blue-600 text-white px-6 py-2 rounded-full shadow-md hover:bg-blue-700 transition"
+            className="bg-[var(--primary)] text-[var(--primary-foreground)] px-6 py-2 rounded-full shadow-md hover:bg-[var(--accent)] hover:text-[var(--accent-foreground)] transition"
             onClick={getMatchId}
           >
             Search
@@ -71,31 +71,33 @@ export default function MatchDetailsPage() {
       {/* Results Section */}
       <section className="mt-10 flex flex-col items-center">
         {loading ? (
-          <p className="text-lg text-gray-500">Loading...</p>
+          <p className="text-lg text-[var(--muted-foreground)]">Loading...</p>
         ) : matchDetails.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
             {matchDetails.map((match) => (
               <div
-                className="bg-white border border-gray-300 rounded-lg shadow-md p-6 hover:shadow-lg transition cursor-pointer"
+                className="bg-[var(--foreground)] text-[var(--primary-foreground)] border border-[var(--muted-foreground)] rounded-lg shadow-md p-6 hover:shadow-lg transition cursor-pointer"
                 key={match.matchId}
                 onClick={() =>
                   navigation(`/match-stats?matchId=${match.matchId}`)
                 }
               >
-                <h2 className="text-xl font-semibold text-blue-600 mb-2">
+                <h2 className="text-xl font-semibold text-[var(--accent)] mb-2">
                   {match.matchName}
                 </h2>
-                <p className="text-gray-700">
+                <p className="text-[var(--primary-foreground)]">
                   <strong>Tournament:</strong> {match.tournamentName}
                 </p>
-                <p className="text-gray-700">
+                <p className="text-[var(--primary-foreground)]">
                   <strong>Result:</strong> {match.result}
                 </p>
               </div>
             ))}
           </div>
         ) : (
-          <p className="text-lg text-gray-500 mt-4">No matches found.</p>
+          <p className="text-lg text-[var(--muted-foreground)] mt-4">
+            No matches found.
+          </p>
         )}
       </section>
     </div>
