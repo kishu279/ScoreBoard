@@ -1,12 +1,12 @@
-import { StrictMode, Suspense } from "react";
+import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 import { BrowserRouter, Route, Routes } from "react-router";
 import LivePage from "./page/live/page.jsx";
-import AdminPage from "./page/admin/page.jsx";
 import MatchDetailsPage from "./page/matchdetails/page.jsx";
 import MatchStats from "./page/match-stats/page.jsx";
+import AdminPage from "./page/admin/page.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

@@ -43,9 +43,12 @@ export default function App() {
             </button>
 
             {/* Right Button */}
-            <button className="absolute right-100 top-1/2 transform -translate-y-1/2 bg-[var(--primary)] text-[var(--primary-foreground)] px-6 py-3 rounded-full shadow-lg hover:bg-[var(--accent)] hover:text-[var(--accent-foreground)] transition duration-300" onClick={() => {
-              navg('/live')
-            }}>
+            <button
+              className="absolute right-100 top-1/2 transform -translate-y-1/2 bg-[var(--primary)] text-[var(--primary-foreground)] px-6 py-3 rounded-full shadow-lg hover:bg-[var(--accent)] hover:text-[var(--accent-foreground)] transition duration-300"
+              onClick={() => {
+                navg("/live");
+              }}
+            >
               Live &#8594;
             </button>
           </div>
