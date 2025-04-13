@@ -11,7 +11,7 @@ export default function App() {
           <p className="text-4xl ml-2 font-mono main-promoline ">
             Get Score of your Favourite Team
           </p>
-          {/* <div className="h-[100px] w-[100px] border-2 shadow-2xl shadow-gray-400 rounded-full main-ballAni  absolute"></div> */}
+          <div className="h-[100px] w-[100px] border-2 shadow-2xl shadow-gray-400 rounded-full main-ballAni  absolute"></div>
         </div>
       </div>
     </>

@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import { useNavigate } from "react-router";
 import { fakeData } from "../match-stats/matches";
 
@@ -29,30 +28,29 @@ export default function MatchDetailsPage() {
 
   async function getMatchId() {
     try {
-      if (matchName.length === 0) {
-        alert("match name should not be empty string");
+      if (matchName.trim().length === 0) {
+        alert("Match name should not be an empty string");
         return;
       }
       setLoading(true);
       const response = await fetchMatchId(matchName);
       setMatchDetails(response);
     } catch (err) {
-      setLoading(false);
-      throw new Error(err);
+      console.error(err);
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-blue-600 text-white py-4 shadow-md">
+      <header className="bg-blue-600 text-white py-6 shadow-md">
         <h1 className="text-4xl font-bold text-center">Find Matches</h1>
-      </div>
+      </header>
 
       {/* Search Section */}
-      <div className="flex flex-col items-center mt-10">
+      <section className="flex flex-col items-center mt-10">
         <div className="flex gap-4">
           <input
             className="border border-gray-300 rounded-full px-4 py-2 w-80 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -68,39 +66,38 @@ export default function MatchDetailsPage() {
             Search
           </button>
         </div>
-      </div>
+      </section>
 
       {/* Results Section */}
-      <div className="mt-10 flex flex-col items-center">
+      <section className="mt-10 flex flex-col items-center">
         {loading ? (
           <p className="text-lg text-gray-500">Loading...</p>
         ) : matchDetails.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 ">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
             {matchDetails.map((match) => (
               <div
-                className="bg-white border border-gray-300 rounded-lg shadow-md p-4 hover:shadow-lg transition cursor-pointer"
+                className="bg-white border border-gray-300 rounded-lg shadow-md p-6 hover:shadow-lg transition cursor-pointer"
                 key={match.matchId}
-                onClick={() => {
-                  // redirect to the page
-                  navigation(`/match-stats?matchId=${match.matchId}`);
-                }}
+                onClick={() =>
+                  navigation(`/match-stats?matchId=${match.matchId}`)
+                }
               >
-                <h2 className="text-xl font-semibold text-blue-600">
+                <h2 className="text-xl font-semibold text-blue-600 mb-2">
                   {match.matchName}
                 </h2>
-                <p className="text-gray-700 mt-2">
+                <p className="text-gray-700">
                   <strong>Tournament:</strong> {match.tournamentName}
                 </p>
-                <p className="text-gray-700 mt-1">
+                <p className="text-gray-700">
                   <strong>Result:</strong> {match.result}
                 </p>
               </div>
             ))}
           </div>
         ) : (
-          <p className="text-lg text-gray-500">No matches found.</p>
+          <p className="text-lg text-gray-500 mt-4">No matches found.</p>
         )}
-      </div>
+      </section>
     </div>
   );
 }

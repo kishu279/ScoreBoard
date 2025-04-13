@@ -1,7 +1,5 @@
 @import "tailwindcss";
-@import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
 
 .main-title {
   animation-name: titleAni;
@@ -74,7 +72,9 @@
   animation-duration: 5s;
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
-  offset-path:path("M1600,0 C500,500 1000,-100 0,0"); /* Define a cubic Bezier curve */
+  offset-path: path(
+    "M1600,0 C500,500 1000,-100 0,0"
+  ); /* Define a cubic Bezier curve */
 }
 
 @keyframes ballAni {

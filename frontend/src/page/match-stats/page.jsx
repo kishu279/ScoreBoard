@@ -3,9 +3,8 @@ import { matchStats } from "./matches";
 import { useSearchParams } from "react-router";
 
 function fetchMatchDetails(matchId) {
-  // fetch according to the match id
   console.log("Inside fetchMatchdetails");
-  var matchFound = {};
+  let matchFound = {};
 
   matchStats.map((match) => {
     if (match.matchId == matchId) {
@@ -27,14 +26,11 @@ export default function MatchStats() {
 
   useEffect(() => {
     const mid = searchParams.get("matchId");
-
     setMatchId(mid);
   }, [searchParams]);
 
-  // FetchFunction
   async function fetchData() {
     if (matchId > 0) {
-      // fetch to the api
       const response = await fetchMatchDetails(matchId);
       console.log("Response: ", response);
       setMatchDetails(response);
@@ -46,48 +42,78 @@ export default function MatchStats() {
   }, [matchId]);
 
   return (
-    <>
-      <div>
-        <p className="text-4xl display place-content-center flex">
-          Match Stats
-        </p>
-        <Suspense fallback={<div>Loading ...</div>}>
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="bg-blue-600 text-white py-6 shadow-md">
+        <h1 className="text-4xl font-bold text-center">Match Stats</h1>
+      </header>
+
+      {/* Content */}
+      <div className="container mx-auto mt-10 px-4">
+        <Suspense fallback={<div className="text-center">Loading...</div>}>
           <Stats matchDetails={matchDetails} />
         </Suspense>
       </div>
-    </>
+    </div>
   );
 }
 
 function Stats({ matchDetails }) {
-  const [selectPid, setSelectPid] = useState("");
   return (
     <div>
-      <div className="h-[80px]">
-        <p className="text-4xl display place-content-center flex">
+      {/* Tournament Name */}
+      <div className="text-center mb-8">
+        <h2 className="text-3xl font-bold text-gray-800">
           {matchDetails?.matchDetails?.tournamentName}
+        </h2>
+        <p className="text-xl text-gray-600 mt-2">
+          {matchDetails?.matchDetails?.team1Name} vs{" "}
+          {matchDetails?.matchDetails?.team2Name}
         </p>
       </div>
-      <div className="display flex justify-center text-3xl gap-20 font-sans">
-        <p>{matchDetails?.matchDetails?.team1Name}</p>
-        <p>VS</p>
-        <p>{matchDetails?.matchDetails?.team2Name}</p>
-      </div>
 
-      <div className=" flex display justify-center gap-[100px] mt-[50px]">
-        <div className=" w-[300px] text-2xl display flex-col place-items-center ">
-          {matchDetails?.team1?.map((player) => (
-            <div className="p-3" key={player?.firstName}>
-              {player?.firstName}
-            </div>
-          ))}
+      {/* Teams and Players */}
+      <div className="flex justify-center gap-16">
+        {/* Team 1 */}
+        <div className="w-1/3 bg-white shadow-md rounded-lg p-6">
+          <h3 className="text-2xl font-semibold text-blue-600 mb-4">
+            {matchDetails?.matchDetails?.team1Name}
+          </h3>
+          <ul className="space-y-2">
+            {matchDetails?.team1?.map((player) => (
+              <li
+                key={player?.firstName}
+                className="p-3 bg-gray-100 rounded-lg shadow-sm"
+              >
+                <p className="font-bold">{player?.playerName}</p>
+                <p className="text-sm text-gray-600">{player?.role}</p>
+                <p className="text-sm text-gray-600">
+                  Runs: {player?.runs || 0}, Wickets: {player?.wicket || 0}
+                </p>
+              </li>
+            ))}
+          </ul>
         </div>
-        <div className=" w-[300px] text-2xl display flex-col place-items-center">
-          {matchDetails?.team2?.map((player) => (
-            <div className="p-3" key={player?.firstName}>
-              {player?.firstName}
-            </div>
-          ))}
+
+        {/* Team 2 */}
+        <div className="w-1/3 bg-white shadow-md rounded-lg p-6">
+          <h3 className="text-2xl font-semibold text-blue-600 mb-4">
+            {matchDetails?.matchDetails?.team2Name}
+          </h3>
+          <ul className="space-y-2">
+            {matchDetails?.team2?.map((player) => (
+              <li
+                key={player?.firstName}
+                className="p-3 bg-gray-100 rounded-lg shadow-sm"
+              >
+                <p className="font-bold">{player?.playerName}</p>
+                <p className="text-sm text-gray-600">{player?.role}</p>
+                <p className="text-sm text-gray-600">
+                  Runs: {player?.runs || 0}, Wickets: {player?.wicket || 0}
+                </p>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>
