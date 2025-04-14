@@ -2,7 +2,7 @@ import { useState } from "react";
 import { socket } from "../../../config";
 
 export default function ControlPanel({ matchDetails }) {
-  const [score, setScore] = useState("");
+  const [score, setScore] = useState(0);
   const [bowler, setBowler] = useState("");
   const [batsman, setBatsMan] = useState("");
   const [balls, setBalls] = useState(0);
@@ -44,7 +44,11 @@ export default function ControlPanel({ matchDetails }) {
               id="Innings1"
               name="Innings"
               value={"1"}
-              onChange={(e) => setInn(e.target.value)}
+              onChange={(e) => {
+                setInn(e.target.value);
+                setScore(0);
+                setBalls(0);
+              }}
               className="hidden peer"
             />
             <label
@@ -60,7 +64,11 @@ export default function ControlPanel({ matchDetails }) {
               id="Innings2"
               name="Innings"
               value={"2"}
-              onChange={(e) => setInn(e.target.value)}
+              onChange={(e) => {
+                setInn(e.target.value);
+                setScore(0);
+                setBalls(0);
+              }}
               className="hidden peer"
             />
             <label
@@ -77,7 +85,7 @@ export default function ControlPanel({ matchDetails }) {
       <div className="flex flex-col items-center gap-4 mb-6">
         <h3 className="text-xl font-semibold">Select Runs {`${score}`}</h3>
         <div className="flex gap-6">
-          {["0", "1", "2", "4", "6", "Wicket"].map((run) => (
+          {[0, 1, 2, 4, 6, -1].map((run) => (
             <div key={run} className="flex items-center gap-2">
               <input
                 type="radio"
@@ -91,7 +99,7 @@ export default function ControlPanel({ matchDetails }) {
                 htmlFor={`Run${run}`}
                 className="cursor-pointer px-4 py-2 border border-[var(--muted-foreground)] rounded-lg peer-checked:bg-[var(--primary)] peer-checked:text-[var(--primary-foreground)] transition"
               >
-                {run === "Wicket" ? "Wicket" : run}
+                {run === -1 ? "Wicket" : run}
               </label>
             </div>
           ))}
@@ -157,7 +165,7 @@ export default function ControlPanel({ matchDetails }) {
                       id={`Bowler${player.playerName}`}
                       name="Bowler"
                       value={player.playerName}
-                      onChange={(e) => setBatsMan(e.target.value)}
+                      onChange={(e) => setBowler(e.target.value)}
                       className="hidden peer"
                     />
                     <label
