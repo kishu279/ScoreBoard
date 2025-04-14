@@ -1,6 +1,7 @@
 import express from "express";
 import { Server } from "socket.io";
 import { createServer } from "http";
+import { liveMatch } from "./data.js";
 
 const app = express();
 const http = createServer(app);
@@ -20,128 +21,7 @@ app.get("/", (req, res) => {
 });
 
 const admin = { credentials: "abcd" };
-
-// fake Data
-
-const liveMatch = {
-  tournamentName: "Premier League 2025",
-  matchName: "Mumbai Indians vs Chennai Super Kings",
-  score: {
-    teamA: {
-      name: "Mumbai Indians",
-      runs: 0,
-      wickets: 0,
-      overs: 0,
-    },
-    teamB: {
-      name: "Chennai Super Kings",
-      runs: 0,
-      wickets: 0,
-      overs: 0,
-    },
-  },
-  players: {
-    teamA: [
-      {
-        playerName: "Rohit Sharma",
-        role: "Batsman",
-        status: "Yet to Bat",
-        runs: 0,
-        balls: 0,
-      },
-      {
-        playerName: "Ishan Kishan",
-        role: "Batsman",
-        status: "Yet to Bat",
-        runs: 0,
-        balls: 0,
-      },
-      {
-        playerName: "Suryakumar Yadav",
-        role: "Batsman",
-        status: "Yet to Bat",
-        runs: 0,
-        balls: 0,
-      },
-      {
-        playerName: "Cameron Green",
-        role: "All-Rounder",
-        status: "Yet to Bat",
-        runs: 0,
-        balls: 0,
-        overs: 0,
-        wickets: 0,
-        runsGiven: 0,
-      },
-      {
-        playerName: "Jasprit Bumrah",
-        role: "Bowler",
-        status: "Yet to Bowl",
-        overs: 0,
-        wickets: 0,
-        runsGiven: 0,
-      },
-      {
-        playerName: "Piyush Chawla",
-        role: "Bowler",
-        status: "Yet to Bowl",
-        overs: 0,
-        wickets: 0,
-        runsGiven: 0,
-      },
-    ],
-    teamB: [
-      {
-        playerName: "MS Dhoni",
-        role: "Batsman",
-        status: "Yet to Bat",
-        runs: 0,
-        balls: 0,
-      },
-      {
-        playerName: "Ruturaj Gaikwad",
-        role: "Batsman",
-        status: "Yet to Bat",
-        runs: 0,
-        balls: 0,
-      },
-      {
-        playerName: "Shivam Dube",
-        role: "All-Rounder",
-        status: "Yet to Bat",
-        runs: 0,
-        balls: 0,
-        overs: 0,
-        wickets: 0,
-        runsGiven: 0,
-      },
-      {
-        playerName: "Deepak Chahar",
-        role: "Bowler",
-        status: "Yet to Bowl",
-        overs: 0,
-        wickets: 0,
-        runsGiven: 0,
-      },
-      {
-        playerName: "Ravindra Jadeja",
-        role: "All-Rounder",
-        status: "Yet to Bowl",
-        overs: 0,
-        wickets: 0,
-        runsGiven: 0,
-      },
-      {
-        playerName: "Matheesha Pathirana",
-        role: "Bowler",
-        status: "Yet to Bowl",
-        overs: 0,
-        wickets: 0,
-        runsGiven: 0,
-      },
-    ],
-  },
-};
+const MatchScores = { inning1: 0, inning2: 0 };
 
 // Socket Connection
 io.on("connection", (socket) => {
@@ -153,10 +33,20 @@ io.on("connection", (socket) => {
     console.log("disconnected");
   });
 
-
   socket.on("match-now", (value) => {
     // operations
-    console.log(value);
+    const num = Number(value.score);
+    if (value.inn == 1) {
+      MatchScores.inning1 += num;
+      value.totalScore = MatchScores.inning1;
+    } else {
+      MatchScores.inning2 += num;
+      value.totalScore = MatchScores.inning2;
+    }
+
+    console.log(MatchScores);
+
+    // console.log(value);
     socket.broadcast.emit("match-now", value);
   });
 

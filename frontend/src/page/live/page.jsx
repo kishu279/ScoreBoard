@@ -50,6 +50,8 @@ export default function LivePage() {
           {data?.matchname || "Match details will appear here"}
         </p>
 
+        <p className="text-lg text-center mb-6">Total Score - {data.totalScore}</p>
+
         <div className="grid grid-cols-2 gap-4">
           <div className="flex flex-col items-center">
             <span className="text-sm font-medium text-[var(--muted-foreground)]">
